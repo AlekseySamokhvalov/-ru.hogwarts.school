@@ -27,12 +27,12 @@ public class FacultyController {
         return facultyService.update(faculty);
     }
 
-    @DeleteMapping
+    @DeleteMapping("{id}")
     public Faculty delete(@RequestParam Long id) {
         return facultyService.delete(id);
     }
 
-    @GetMapping
+    @GetMapping("{id}")
     public Faculty get(@RequestParam Long id) {
         return facultyService.get(id);
     }

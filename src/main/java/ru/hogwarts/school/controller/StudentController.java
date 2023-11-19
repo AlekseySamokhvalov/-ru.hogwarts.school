@@ -27,12 +27,12 @@ public class StudentController {
         return studentService.update(student);
     }
 
-    @DeleteMapping
+    @DeleteMapping("{id}")
     public Student delete(@RequestParam long id) {
         return studentService.delete(id);
     }
 
-    @GetMapping
+    @GetMapping("{id}")
     public Student get(@RequestParam long id) {
         return studentService.get(id);
     }
