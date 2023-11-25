@@ -8,16 +8,18 @@ import java.util.Objects;
 @Entity
 public class Faculty {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private static int ID_COUNTER = 0;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
     private String color;
 
-    public Faculty(Long id, String name, String color) {
+    public Faculty() {
+
+    }
+
+    public Faculty(String name, String color) {
         this.id = id;
         this.name = name;
         this.color = color;

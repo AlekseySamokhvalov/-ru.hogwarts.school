@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -19,12 +21,12 @@ public class StudentController {
 
     @PostMapping
     public Student add(@RequestBody Student student) {
-        return studentService.add(student);
+        return studentService.add(student.getName(), student.getAge());
     }
 
     @PutMapping
     public Student update(@RequestBody Student student) {
-        return studentService.update(student);
+        return studentService.update(student.getId(), student.getName(), student.getAge());
     }
 
     @DeleteMapping("{id}")
@@ -43,7 +45,7 @@ public class StudentController {
     }
 
     @GetMapping("/all")
-    public Map<Long, Student> getAll() {
+    public Collection<Student> getAll() {
         return studentService.getAll();
     }
 }

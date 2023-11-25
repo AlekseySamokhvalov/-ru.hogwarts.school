@@ -37,13 +37,4 @@ public class FacultyController {
         return facultyService.get(id);
     }
 
-    @GetMapping("/by-color")
-    public List<Faculty> getByColor(@RequestParam String color) {
-        return facultyService.getByColor(color);
-    }
-
-    @GetMapping("/all")
-    public Map<Long, Faculty> getAll() {
-        return facultyService.getAll();
-    }
 }

@@ -8,19 +8,18 @@ import java.util.Objects;
 @Entity
 public class Student {
 @Id
-@GeneratedValue(strategy = GenerationType.AUTO)
+@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
     private int age;
 
-    public Student(Long id, String name, int age) {
-        this.id = id;
+    public Student( String name, int age) {
         this.name = name;
         this.age = age;
     }
+    public Student() {
 
+    }
     public Long getId() {
         return id;
     }

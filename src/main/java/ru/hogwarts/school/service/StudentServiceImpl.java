@@ -1,65 +1,54 @@
 package ru.hogwarts.school.service;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.hogwarts.school.exception.StudentNotFoundException;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.repository.StudentRepository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 public class StudentServiceImpl implements StudentService {
+    @Autowired
+    private final StudentRepository repository;
 
-    private static long ID_COUNTER = 1;
-
-    private final Map<Long, Student> studentById = new HashMap<>();
-
-    public Student add(Student student) {
-        Student newStudent = new Student(ID_COUNTER, student.getName(), student.getAge());
-        ID_COUNTER++;
-        studentById.put(newStudent.getId(), newStudent);
-        return newStudent;
+    public StudentServiceImpl(StudentRepository repository) {
+        this.repository = repository;
     }
 
-    public Student update(Student student) {
-        Student studentForUpdate = studentById.get(student.getId());
-        if (studentForUpdate == null) {
-            throw new StudentNotFoundException();
-        }
+    public Student add(String name, int age) {
+        Student newStudent = new Student(name, age);
+        newStudent = repository.save(newStudent);
+        return newStudent;
+    }
+//    public Student add(Student student) { return repository.save(student); // добавили
+//}
 
-        studentForUpdate.setName(student.getName());
-        studentForUpdate.setAge(student.getAge());
-        return studentForUpdate;
+    public Student update(long id, String name, Integer age) {
+        Student studentForUpdate = get(id);
+        studentForUpdate.setName(name);
+        studentForUpdate.setAge(age);
+        return repository.save(studentForUpdate);
     }
 
     public Student delete(Long id) {
-        Student studentForDelete = studentById.get(id);
-        if (studentForDelete == null) {
-            throw new StudentNotFoundException();
-        }
-
-        return studentById.remove(id);
+        Student studentForDelete = get(id);
+        repository.deleteById(id);
+        return studentForDelete;
     }
 
     public Student get(Long id) {
-        Student studentForSearch = studentById.get(id);
-        if (studentForSearch == null) {
-            throw new StudentNotFoundException();
-        }
-
-        return studentForSearch;
+        return repository.findById(id).get(); // вывели
     }
 
     @Override
     public List<Student> getByAge(int age) {
-        return studentById.values().stream()
-                .filter(student -> student.getAge() == age)
-                .collect(Collectors.toList());
+        return null;
     }
 
-    public Map<Long, Student> getAll() {
-        return studentById;
+    @Override
+    public Collection<Student> getAll() {
+        return repository.findAll();
     }
+
+
 }

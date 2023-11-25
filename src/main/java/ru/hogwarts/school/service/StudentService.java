@@ -2,14 +2,14 @@ package ru.hogwarts.school.service;
 
 import ru.hogwarts.school.model.Student;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 public interface StudentService {
 
-    Student add(Student student);
+    Student add(String name, int age);
 
-    Student update(Student student);
+    Student update(long id, String name, Integer age);
 
     Student delete(Long id);
 
@@ -17,5 +17,5 @@ public interface StudentService {
 
     List<Student> getByAge(int age);
 
-    Map<Long, Student> getAll();
+    Collection<Student> getAll();
 }
