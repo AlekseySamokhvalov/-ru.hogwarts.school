@@ -4,11 +4,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -38,7 +33,7 @@ public class StudentController {
     public Student get(@RequestParam long id) {
         return studentService.get(id);
     }
-
+/*
     @GetMapping("/by-age")
     public List<Student> getByAge(@RequestParam int age) {
         return studentService.getByAge(age);
@@ -48,4 +43,6 @@ public class StudentController {
     public Collection<Student> getAll() {
         return studentService.getAll();
     }
+
+ */
 }

@@ -1,21 +1,50 @@
 package ru.hogwarts.school.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.Collection;
 import java.util.List;
 
-public interface StudentService {
+public class StudentService {
+    @Autowired
+    private final StudentRepository studentRepository;
 
-    Student add(String name, int age);
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
 
-    Student update(long id, String name, Integer age);
+    public Student add(String name, Integer age) {
+        Student newStudent = new Student(name, age);
+        newStudent = studentRepository.save(newStudent);
+        return newStudent;
+    }
 
-    Student delete(Long id);
+    public Student get(long id) {
+        return studentRepository.findById(id).get();
+    }
 
-    Student get(Long id);
+    public Student update(long id, String name, Integer age) {
+        Student studentForUpdate = get(id);
+        studentForUpdate.setName(name);
+        studentForUpdate.setAge(age);
+        return studentRepository.save(studentForUpdate);
+    }
 
-    List<Student> getByAge(int age);
+    public Student delete(long id) {
+        Student studentForDelete = get(id);
+        studentRepository.deleteById(id);
+        return studentForDelete;
+    }
+/*
+    public List<Student> getByAge(int age) {
+        return null;
+    }
 
-    Collection<Student> getAll();
+    public Collection<Student> getAll() {
+        return studentRepository.findAll();
+    }
+
+ */
 }
