@@ -22,22 +22,22 @@ public class StudentServiceImpl implements StudentService {
     }
 //    public Student add(Student student) { return repository.save(student); // добавили
 //}
-
+    @Override
     public Student update(long id, String name, Integer age) {
         Student studentForUpdate = get(id);
         studentForUpdate.setName(name);
         studentForUpdate.setAge(age);
         return repository.save(studentForUpdate);
     }
-
+    @Override
     public Student delete(Long id) {
         Student studentForDelete = get(id);
         repository.deleteById(id);
         return studentForDelete;
     }
-
+    @Override
     public Student get(Long id) {
-        return repository.findById(id).get(); // вывели
+        return repository.findById(id).orElse(null); // вывели
     }
 
     @Override

@@ -5,21 +5,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Objects;
+import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 public class Student {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
     private String name;
     private int age;
+    public Student() {
 
+    }
     public Student( String name, int age) {
         this.name = name;
         this.age = age;
     }
-    public Student() {
 
-    }
     public Long getId() {
         return id;
     }
