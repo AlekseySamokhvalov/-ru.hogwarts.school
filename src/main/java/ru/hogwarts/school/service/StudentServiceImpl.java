@@ -8,7 +8,7 @@ import java.util.*;
 
 @Service
 public class StudentServiceImpl implements StudentService {
-    @Autowired
+
     private final StudentRepository repository;
 
     public StudentServiceImpl(StudentRepository repository) {
@@ -42,7 +42,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> getByAge(int age) {
-        return null;
+        return repository.findAllByAge(age);
     }
 
     @Override
