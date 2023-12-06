@@ -29,12 +29,12 @@ public class FacultyController {
     }
 
     @DeleteMapping("{id}")
-    public Faculty delete(@RequestParam Long id) {
+    public Faculty delete(@PathVariable Long id) {
         return facultyService.delete(id);
     }
 
     @GetMapping("{id}")
-    public Faculty get(@RequestParam Long id) {
+    public Faculty get(@PathVariable Long id) {
         return facultyService.get(id);
     }
     @GetMapping("/by-color")

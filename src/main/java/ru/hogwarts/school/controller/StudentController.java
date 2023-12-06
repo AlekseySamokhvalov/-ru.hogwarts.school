@@ -31,12 +31,12 @@ public class StudentController {
     }
 
     @DeleteMapping("{id}")
-    public Student delete(@RequestParam long id) {
+    public Student delete(@PathVariable long id) {
         return studentService.delete(id);
     }
 
     @GetMapping("{id}")
-    public Student get(@RequestParam long id) {
+    public Student get(@PathVariable long id) {
         return studentService.get(id);
     }
 
