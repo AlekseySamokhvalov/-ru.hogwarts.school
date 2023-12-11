@@ -1,9 +1,11 @@
 package ru.hogwarts.school.controller;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.service.AvatarService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -31,5 +33,10 @@ public class AvatarController {
     @GetMapping(value = "/{id}/avatar-from-db")
     public ResponseEntity<byte[]> downloadFromDb(@PathVariable Long id) {
         return avatarService.downloadFromDb(id);
+    }
+
+    @GetMapping
+    public Page<Avatar> getWithPageAvatar (@RequestParam Integer page, @RequestParam Integer count ) throws  IOException{
+        return avatarService.getWithPageAvatar(page, count);
     }
 }
