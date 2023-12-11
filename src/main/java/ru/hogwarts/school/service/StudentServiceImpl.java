@@ -10,15 +10,15 @@ import java.util.*;
 @Service
 public class StudentServiceImpl implements StudentService {
 
-    private final StudentRepository repository;
+    private final StudentRepository studentRepository;
 
     public StudentServiceImpl(StudentRepository repository) {
-        this.repository = repository;
+        this.studentRepository = repository;
     }
 
     public Student add(String name, int age) {
         Student newStudent = new Student(name, age);
-        newStudent = repository.save(newStudent);
+        newStudent = studentRepository.save(newStudent);
         return newStudent;
     }
 //    public Student add(Student student) { return repository.save(student); // добавили
@@ -28,41 +28,53 @@ public class StudentServiceImpl implements StudentService {
         Student studentForUpdate = get(id);
         studentForUpdate.setName(name);
         studentForUpdate.setAge(age);
-        return repository.save(studentForUpdate);
+        return studentRepository.save(studentForUpdate);
     }
     @Override
     public Student delete(Long id) {
         Student studentForDelete = get(id);
-        repository.deleteById(id);
+        studentRepository.deleteById(id);
         return studentForDelete;
     }
     @Override
     public Student get(Long id) {
-        return repository.findById(id).orElse(null); // вывели
+        return studentRepository.findById(id).orElse(null); // вывели
     }
 
     @Override
     public List<Student> getByAge(int age) {
-        return repository.findAllByAge(age);
+        return studentRepository.findAllByAge(age);
     }
 
     @Override
     public Collection<Student> getAll() {
-        return repository.findAll();
+        return studentRepository.findAll();
     }
     @Override
     public List<Student> findByAgeBetween(int min, int max) {
-        return repository.findByAgeBetween(min, max);
+        return studentRepository.findByAgeBetween(min, max);
     }
 
     @Override
     public Faculty getFaculty(Long studentId) {
-        return repository.findById(studentId).get().getFaculty();
+        return studentRepository.findById(studentId).get().getFaculty();
     }
 
     @Override
     public List<Student> findByFacultyId(long facultyId) {
-        return repository.findByFacultyId(facultyId);
+        return studentRepository.findByFacultyId(facultyId);
+    }
+    @Override
+    public Integer getCount(){
+        return studentRepository.getCount();
+    }
+    @Override
+    public Double getAvgAge(){
+        return studentRepository.getAvgAge();
+    }
+    @Override
+    public List<Student> getLastFiveStudent(){
+        return studentRepository.getLastFiveStudent();
     }
 
 
