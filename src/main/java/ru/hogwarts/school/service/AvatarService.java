@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
@@ -83,7 +84,9 @@ public class AvatarService {
         headers.setContentLength(avatar.getData().length);
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(avatar.getData());
     }
+
     public Page<Avatar> getWithPageAvatar(Integer page, Integer count) {
         return avatarRepository.findAll(PageRequest.of(page-1, count));
     }
+
 }

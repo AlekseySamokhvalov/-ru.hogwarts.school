@@ -10,6 +10,7 @@ import ru.hogwarts.school.service.AvatarService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/avatar")
@@ -39,4 +40,5 @@ public class AvatarController {
     public Page<Avatar> getWithPageAvatar (@RequestParam Integer page, @RequestParam Integer count ) throws  IOException{
         return avatarService.getWithPageAvatar(page, count);
     }
+
 }
