@@ -1,5 +1,7 @@
 package ru.hogwarts.school.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,7 +28,7 @@ public class AvatarService {
     private final AvatarRepository avatarRepository;
     private final StudentRepository studentRepository;
     private final String avatarsDir;
-
+    private final Logger logger = LoggerFactory.getLogger(AvatarService.class);
     public AvatarService(
             AvatarRepository avatarRepository,
             StudentRepository studentRepository,
@@ -38,6 +40,7 @@ public class AvatarService {
     }
 
     public ResponseEntity<String> uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
+        logger.info("Был вызван метод uploadAvatar");
         Student student = studentRepository.findById(studentId).get();
         Path filePath = Path.of(avatarsDir, student + "." + getExtensions(avatarFile.getOriginalFilename()));
         Files.createDirectories(filePath.getParent());
@@ -61,10 +64,12 @@ public class AvatarService {
     }
 
     private String getExtensions(String fileName) {
+        logger.info("Был вызван метод getExtensions");
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 
     public void downloadAvatar(Long id, HttpServletResponse response) throws IOException {
+        logger.info("Был вызван метод downloadAvatar");
         Avatar avatar = avatarRepository.findById(id).get();
         Path path = Path.of(avatar.getFilePath());
         try (InputStream is = Files.newInputStream(path);
@@ -77,6 +82,7 @@ public class AvatarService {
     }
 
     public ResponseEntity<byte[]> downloadFromDb(Long id) {
+        logger.info("Был вызван метод downloadFromDb");
         Avatar avatar = avatarRepository.findById(id).get();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(avatar.getMediaType()));
@@ -84,6 +90,7 @@ public class AvatarService {
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(avatar.getData());
     }
     public Page<Avatar> getWithPageAvatar(Integer page, Integer count) {
+        logger.info("Был вызван метод getWithPageAvatar");
         return avatarRepository.findAll(PageRequest.of(page-1, count));
     }
 }
