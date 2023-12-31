@@ -33,4 +33,6 @@ public interface StudentService {
     List<Student> getLastFiveStudent();
     List<String> getAllWhereNameStartWithA();
     double getAvgAgeWithStream();
+    void printStudents();
+    void printStudentsSync();
 }
