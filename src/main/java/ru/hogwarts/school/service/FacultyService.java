@@ -9,6 +9,9 @@ import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static java.util.Arrays.stream;
 
 @Service
 public class FacultyService {
@@ -60,6 +63,28 @@ public class FacultyService {
     public List<Student> getStudents(Long id) {
         logger.info("Был вызван метод getStudents");
         return studentService.findByFacultyId(id);
+    }
+
+    public String getLongestName() {
+        return repository.findAll().stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparing(String::length))
+                .get();
+    }
+
+    public List<String> getListLongestName(){
+
+        List<Faculty> facultyList = repository.findAll();
+        int maxLength = facultyList.stream()
+                .map(Faculty::getName)
+                .max((name1, name2) -> name1.length() - name2.length())
+                .map(String::length)
+                .get();
+
+        return facultyList.stream()
+                .map(Faculty::getName)
+                .filter(name -> name.length() == maxLength)
+                .collect(Collectors.toList());
     }
 
 }
